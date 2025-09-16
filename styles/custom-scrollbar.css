@@ -1,0 +1,23 @@
+/* Custom vertical scrollbar for chat card */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #e5fbe5; /* green thumb, light green track */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+  background: #e5fbe5;
+  border-radius: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 8px;
+  min-height: 40px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #16a34a;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #e5fbe5;
+  border-radius: 8px;
+}
