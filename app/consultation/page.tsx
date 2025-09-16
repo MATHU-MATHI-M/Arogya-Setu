@@ -32,7 +32,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { geminiAI, type DiagnosisResult } from "@/lib/gemini-ai"
-import { VoiceAssistant } from "@/components/voice-assistant"
+// import { VoiceAssistant } from "@/components/voice-assistant"
 
 interface PatientData {
   name: string
@@ -525,7 +525,7 @@ function ConsultationWizard() {
                       className="flex-1"
                       disabled={isTyping}
                     />
-                    <VoiceAssistant onVoiceInput={(text) => setCurrentMessage(text)} />
+
                     <Button onClick={sendMessage} disabled={!currentMessage.trim() || isTyping}>
                       {isTyping ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                     </Button>
@@ -833,7 +833,32 @@ function ConsultationWizard() {
                         </>
                       )}
                     </div>
-                    <Button className="w-full mt-4 bg-transparent" variant="outline">
+                    <Button
+                      className="w-full mt-4 bg-transparent"
+                      variant="outline"
+                      onClick={async () => {
+                        const jsPDF = (await import('jspdf')).default
+                        const doc = new jsPDF()
+                        let y = 10
+                        doc.setFontSize(16)
+                        doc.text("Patient-Friendly Summary", 10, y)
+                        y += 10
+                        doc.setFontSize(12)
+                        doc.text(diagnosis.patientSummary || "", 10, y)
+                        y += 10
+                        if (diagnosis.followUp.length > 0) {
+                          doc.setFontSize(14)
+                          doc.text("Follow-up Instructions", 10, y)
+                          y += 8
+                          doc.setFontSize(12)
+                          diagnosis.followUp.forEach((inst) => {
+                            doc.text("- " + inst, 12, y)
+                            y += 7
+                          })
+                        }
+                        doc.save("patient-summary.pdf")
+                      }}
+                    >
                       Print Patient Summary
                     </Button>
                   </CardContent>

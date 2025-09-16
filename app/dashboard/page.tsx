@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { useAuth } from "@/components/auth-guard"
 import { i18n } from "@/lib/i18n"
-import { VoiceAssistant } from "@/components/voice-assistant"
+// import { VoiceAssistant } from "@/components/voice-assistant"
 import {
   UserPlus,
   FileText,
@@ -117,10 +117,7 @@ function Dashboard() {
   return (
     <MedicalLayout currentPage="home">
       <div className="space-y-6">
-        {/* Voice Assistant for dashboard narration */}
-        <div className="flex justify-end">
-          <VoiceAssistant className="mb-2" />
-        </div>
+
         {/* Welcome Section */}
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
